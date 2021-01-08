@@ -1,8 +1,10 @@
 import { useState } from "react";
 
 function App() {
+
   const defaultFormInput = { longURL: '', shortURL: '' };
   const [formInput, setFormInput] = useState(defaultFormInput);
+
   const onHandleChange = (e) => {
     const name = e.target.name
     setFormInput({ ...formInput, [name]: e.target.value })
@@ -10,7 +12,17 @@ function App() {
 
   const onHandleSubmit = (e) => {
     e.preventDefault();
-    console.log(formInput);
+    // console.log(formInput);
+    fetch('http://localhost:3000', {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      method: 'POST',
+      body: JSON.stringify(formInput)
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
   }
 
   return (
