@@ -1,9 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
 
-  const defaultFormInput = { longURL: '', shortURL: '' };
+  const defaultFormInput = { longURL: '', customURL: '' };
   const [formInput, setFormInput] = useState(defaultFormInput);
+
+  useEffect(
+    () => {
+      const path = window.location.pathname.slice(1);
+      console.log(path)
+      if (window.location.pathname.slice(1)) {
+        fetch(`http://localhost:3000/${path}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          }
+        })
+          .then(res => res.text())
+          .then(data => window.history.pushState({}, '', data))
+          .catch(console.log('error'))
+      }
+    }, []
+  )
 
   const onHandleChange = (e) => {
     const name = e.target.name
@@ -14,15 +32,15 @@ function App() {
     e.preventDefault();
     // console.log(formInput);
     fetch('http://localhost:3000', {
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
       },
       method: 'POST',
       body: JSON.stringify(formInput)
     })
-    .then(res => res.json())
-    .then(data => console.log(data))
+      .then(res => res.json())
+      .then(data => console.log(data))
   }
 
   return (
@@ -39,19 +57,18 @@ function App() {
             value={formInput.longURL}
             onChange={onHandleChange}
           ></input>
-          <label htmlFor="shortURL">Enter custom URL (optional)</label>
+          <label htmlFor="customURL">Enter custom URL (optional)</label>
           <input
             type="text"
-            name="shortURL"
-            id="shortURL"
-            value={formInput.shortURL}
+            name="customURL"
+            id="customURL"
+            value={formInput.customURL}
             onChange={onHandleChange}
           ></input>
           <button type="submit">Submit</button>
         </form>
       </div>
     </main>
-
   );
 }
 
