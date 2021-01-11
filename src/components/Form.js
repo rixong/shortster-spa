@@ -24,6 +24,9 @@ const Form = (props) => {
       .then(res => res.json())
       .then(data => {
         console.log(data);
+        if(data.error){
+          props.setNotification(data.error);
+        }
         setShortURL(data.shortURL);
       })
       .catch(e => {
@@ -41,6 +44,7 @@ const Form = (props) => {
             id="longURL"
             value={formInput.longURL}
             onChange={onHandleChange}
+            onFocus={props.clearNotification}
           ></input>
           <label htmlFor="customURL">Enter custom URL (optional)</label>
           <input
@@ -49,6 +53,7 @@ const Form = (props) => {
             id="customURL"
             value={formInput.customURL}
             onChange={onHandleChange}
+            onFocus={props.clearNotification}
           ></input>
           <button type="submit">Submit</button>
         </form>
