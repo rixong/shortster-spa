@@ -16,6 +16,15 @@ code {
     monospace;
 }
 
+span {
+  color: red;
+  font-size: 1.5em;
+}
+
+.notification {
+  color: red;
+}
+
 .container {
   margin: 0 auto;
   background-color: rgb(236, 236, 236);
@@ -24,6 +33,6 @@ code {
 }
 
 .inputForm {
-  height: 400px;
-  background-color: antiquewhite;
+  /* height: 400px; */
+  /* background-color: antiquewhite; */
 }

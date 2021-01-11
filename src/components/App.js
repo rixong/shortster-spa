@@ -6,41 +6,55 @@ function App() {
 
   const [URLObj, setURLObj] = useState('');
   const [showStats, setShowStats] = useState(false)
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState('Hello Error');
 
+// retrieve path and route to proper endpoint
 useEffect(
   () => {
     setShowStats(false);
+    setError(false);
+    setMessage('');
     const path = window.location.pathname
     console.log(path)
-    if (path.slice(-6) === '/stats') {
-      fetch(`http://localhost:3000${path}`)
-        .then(res => res.json())
-        .then(data => setURLObj(data))
-        .catch(e => console.log(e))
-      setShowStats(true);
-    } else if (path.length > 1) {
-      console.log('here')
-      fetch(`http://localhost:3000${path}`)
-        .then(res => res.json())
-        .then(data => {
-          console.log(data.longURL)
-          window.location.assign(data.longURL)
-        })
-        .catch((e) => console.log(e))
+    if (path.length < 2){
+      return
     }
+    fetch(`http://localhost:3000${path}`)
+      .then(res => res.json())
+      .then(data => {
+        if(data.error){
+          setError(true);
+          setMessage(data.error);
+        } else {
+          setURLObj(data);
+          if (path.slice(-6) === '/stats') {
+            setShowStats(true);
+          } else {
+            window.location.assign(data.longURL)
+          }
+        }
+      })
+      .catch(e => console.log(e))
   }, []
 )
 
 return (
   <div className="container">
     <h1>Shortster</h1>
-    <div className="container">
+    <div className="">
       {showStats ?
         <Stats URLObj={URLObj} />
         :
         <Form />
       }
     </div>
+    {error ?
+    <div className="notification">
+      <p>{message}</p>
+    </div>
+    : null 
+    }
   </div>
 );
 }

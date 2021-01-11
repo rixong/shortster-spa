@@ -55,7 +55,7 @@ const Form = (props) => {
       </div>
       <div>
         {shortURL ?
-          <p>You're short URL: {shortURL}</p>
+          <p >You're short URL: <span>{shortURL}</span></p>
           : null
         }
       </div>
