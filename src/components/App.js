@@ -24,7 +24,7 @@ useEffect(
         .then(res => res.json())
         .then(data => {
           console.log(data.longURL)
-          window.location.assign(`https://${data.longURL}`)
+          window.location.assign(data.longURL)
         })
         .catch((e) => console.log(e))
     }
