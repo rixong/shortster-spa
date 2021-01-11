@@ -1,75 +1,47 @@
 import { useState, useEffect } from "react";
+import Form from './Form';
+import Stats from './Stats';
 
 function App() {
 
-  const defaultFormInput = { longURL: '', customURL: '' };
-  const [formInput, setFormInput] = useState(defaultFormInput);
+  const [URLObj, setURLObj] = useState('');
+  const [showStats, setShowStats] = useState(false)
 
-  useEffect(
-    () => {
-      const path = window.location.pathname.slice(1);
-      console.log(path)
-      if (window.location.pathname.slice(1)) {
-        fetch(`http://localhost:3000/${path}`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          }
+useEffect(
+  () => {
+    setShowStats(false);
+    const path = window.location.pathname
+    console.log(path)
+    if (path.slice(-6) === '/stats') {
+      fetch(`http://localhost:3000${path}`)
+        .then(res => res.json())
+        .then(data => setURLObj(data))
+        .catch(e => console.log(e))
+      setShowStats(true);
+    } else if (path.length > 1) {
+      console.log('here')
+      fetch(`http://localhost:3000${path}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data.longURL)
+          window.location.assign(`https://${data.longURL}`)
         })
-          .then(res => res.text())
-          .then(data => window.history.pushState({}, '', data))
-          .catch(console.log('error'))
+        .catch((e) => console.log(e))
+    }
+  }, []
+)
+
+return (
+  <div className="container">
+    <h1>Shortster</h1>
+    <div className="container">
+      {showStats ?
+        <Stats URLObj={URLObj} />
+        :
+        <Form />
       }
-    }, []
-  )
-
-  const onHandleChange = (e) => {
-    const name = e.target.name
-    setFormInput({ ...formInput, [name]: e.target.value })
-  }
-
-  const onHandleSubmit = (e) => {
-    e.preventDefault();
-    // console.log(formInput);
-    fetch('http://localhost:3000', {
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      method: 'POST',
-      body: JSON.stringify(formInput)
-    })
-      .then(res => res.json())
-      .then(data => console.log(data))
-  }
-
-  return (
-
-    <main className="App">
-      <h1>Shortster</h1>
-      <div>
-        <form onSubmit={(e) => onHandleSubmit(e)}>
-          <label htmlFor="longURL">Enter original URL</label>
-          <input
-            type="text"
-            name="longURL"
-            id="longURL"
-            value={formInput.longURL}
-            onChange={onHandleChange}
-          ></input>
-          <label htmlFor="customURL">Enter custom URL (optional)</label>
-          <input
-            type="text"
-            name="customURL"
-            id="customURL"
-            value={formInput.customURL}
-            onChange={onHandleChange}
-          ></input>
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    </main>
-  );
+    </div>
+  </div>
+);
 }
-
 export default App;
