@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# Shortster - Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Github Repository:
+https://github.com/rixong/shortster-spa
 
-## Available Scripts
+## Installation:
+Clone the folder locally from GitHub and install dependencies.
+```
+npm install
+npm start
+```
+You will also need to install and run [Shorster API](https://github.com/rixong/shortster-api) on the same machine.
 
-In the project directory, you can run:
+## Instructions:
+CREATING A Short URL:
+1. Navigate to Root URL (localhost:3001/) to display the form.
+2. Copy and Paste desired long URL from a website into the 'Long URL' field.
+3. Optionally enter a short URL (4 or more characters, only letters and numbers) into the 'short URL' field. 
+4. If you do not enter a short URL one will be generated for you.
+5. Submit the request to display your new short URL.
 
-### `yarn start`
+NAVIGATING to the URL using your short URL:
+1. Append your short URL to the Root URL (localhost:3001/myShortUrl) and submit.
+2. You will be redirected to the original page, if the URL is valid.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+VIEWING Stats:
+1. Append '/stats' to the short URL to view statistics (localhost:3001/myShortUrl/stats).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+## Assumptions:
+A 'longURL' refers to an existing URL. My first version I had the shortURL refer to a fictitious pathname, as if we were redirecting to a URL within the local domain, but decided it made more sense have the shortURLs link to real URLS in the wild.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Technology:
+* React v.17.0.1
+* Luxon v.1.2.5 (TimeDate formatting)
