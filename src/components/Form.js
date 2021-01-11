@@ -24,7 +24,7 @@ const Form = (props) => {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        if(data.error){
+        if (data.error) {
           props.setNotification(data.error);
         }
         setShortURL(data.shortURL);
@@ -35,32 +35,31 @@ const Form = (props) => {
   }
   return (
     <div className="inputForm">
-      <div >
-        <form onSubmit={(e) => onHandleSubmit(e)}>
-          <label htmlFor="longURL">Enter original URL</label>
-          <input
-            type="text"
-            name="longURL"
-            id="longURL"
-            value={formInput.longURL}
-            onChange={onHandleChange}
-            onFocus={props.clearNotification}
-          ></input>
-          <label htmlFor="customURL">Enter custom URL (optional)</label>
-          <input
-            type="text"
-            name="customURL"
-            id="customURL"
-            value={formInput.customURL}
-            onChange={onHandleChange}
-            onFocus={props.clearNotification}
-          ></input>
-          <button type="submit">Submit</button>
-        </form>
-      </div>
+      <form onSubmit={(e) => onHandleSubmit(e)}>
+        <label htmlFor="longURL">Enter original URL</label>
+        <br></br>
+        <input
+          type="text"
+          name="longURL"
+          id="longURL"
+          value={formInput.longURL}
+          onChange={onHandleChange}
+          onFocus={props.clearNotification}
+        ></input>
+        <label htmlFor="customURL">Enter your own short URL (optional)</label>
+        <input
+          type="text"
+          name="customURL"
+          id="customURL"
+          value={formInput.customURL}
+          onChange={onHandleChange}
+          onFocus={props.clearNotification}
+        ></input>
+        <button type="submit">Submit</button>
+      </form>
       <div>
         {shortURL ?
-          <p >You're short URL: <span>{shortURL}</span></p>
+          <p >You're shortened URL: <span>{shortURL}</span></p>
           : null
         }
       </div>
